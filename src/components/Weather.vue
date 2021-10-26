@@ -3,9 +3,25 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent } from 'vue';
+import { defineComponent, reactive } from 'vue';
+
 
 const weather = defineComponent({
+    props:{},
+    async setup(){
+        const data = reactive({
+            api_key:'1e98200976dfc0825963c51093ac8a88',
+            url_base:'https://api.openweathermap.org/data/2.5/',
+            query:'',
+            weather:{}
+        });
+
+       function fetchWeather(e:any){
+           if(e.key == 'Enter'){
+               fetch(`${data.url_base}weather?q=${data.query}&units=metri&appid=${data.api_key}&lang=pt_br`)
+           }
+        } 
+    },
 
 });
 
