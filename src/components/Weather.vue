@@ -19,9 +19,20 @@ const weather = defineComponent({
        function fetchWeather(e:any){
            if(e.key == 'Enter'){
                fetch(`${data.url_base}weather?q=${data.query}&units=metri&appid=${data.api_key}&lang=pt_br`)
+               .then(res=>{
+                   return res.json()
+               }).then(weather.setResults)
            }
-        } 
-    },
+        }
+
+        function setResults(results:[]){
+        data.weather = results;
+        }
+
+        return{ data, fetchWeather, setResults}
+    }
+
+    
 
 });
 
