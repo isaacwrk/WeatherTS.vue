@@ -1,27 +1,29 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <Weather/>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import HelloWorld from './components/HelloWorld.vue';
+import Weather from '@/components/Weather.vue'
+
 
 @Options({
   components: {
-    HelloWorld,
+    Weather
   },
 })
 export default class App extends Vue {}
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
 }
+body{
+    font-family: 'montserrat', sans-serif;
+}
+
 </style>
