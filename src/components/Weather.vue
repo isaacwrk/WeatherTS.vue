@@ -13,7 +13,6 @@
         <div class="weather-app">
             <div class="location-box">
                 <div class="location">{{data.weather.name}}</div>
-                
             </div>
         </div>
     </main>
