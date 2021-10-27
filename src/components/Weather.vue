@@ -1,5 +1,23 @@
 <template>
-<h2>oi</h2>
+<div>
+    <main>
+        <div>
+            <input 
+            type="text"
+            class="search-bar"
+            placeholder="Pesquisar.."
+            v-model="data.query"
+            @keypress="fetchWeather"/>
+        </div>
+        
+        <div class="weather-app">
+            <div class="location-box">
+                <div class="location">{{data.weather.name}}</div>
+                
+            </div>
+        </div>
+    </main>
+</div>
 </template>
 
 <script lang='ts'>
@@ -8,7 +26,7 @@ import { defineComponent, reactive } from 'vue';
 
 const weather = defineComponent({
     props:{},
-    async setup(){
+     setup(){
         const data = reactive({
             api_key:'1e98200976dfc0825963c51093ac8a88',
             url_base:'https://api.openweathermap.org/data/2.5/',
@@ -18,7 +36,7 @@ const weather = defineComponent({
 
        function fetchWeather(e:any){
            if(e.key == 'Enter'){
-               fetch(`${data.url_base}weather?q=${data.query}&units=metri&appid=${data.api_key}&lang=pt_br`)
+               fetch(`${data.url_base}weather?q=${data.query}&units=metric&appid=${data.api_key}&lang=pt_br`)
                .then(res=>{
                    return res.json()
                }).then(weather.setResults)
@@ -26,13 +44,22 @@ const weather = defineComponent({
         }
 
         function setResults(results:[]){
-        data.weather = results;
+            data.weather = results;
         }
 
-        return{ data, fetchWeather, setResults}
-    }
+        function dateBuilder(){
+            let d = new Date();
+            let months = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+            let days = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
+            let day = days[d.getDay()];
+            let date = d.getDate();
+            let month = months[d.getMonth()];
+            let year = d.getFullYear();
+            return `${day} ${date} ${month} ${year}`;
+        } 
 
-    
+        return{ data, fetchWeather, setResults, dateBuilder}
+    }
 
 });
 
@@ -80,14 +107,14 @@ main{
   border-radius: 16px 0px 16px 0px;
 }
 .location-box .location{
-  color: #FFF;
+  
   font-size:32px;
   font-weight: 500;
   text-align: center;
   text-shadow: 1px 3px rgba(0, 0, 0, 0.25);
 }
 .location-box, .date{
-  color:#FFF;
+  
   font-size:20px;
   font-weight: 300;
   font-style: italic;
