@@ -1,5 +1,5 @@
 <template>
-    <div class="">
+    <div class="bg-blue-300">
         <div v-if="!data.weather" wire:loading class="fixed top-0 left-0 right-0 bottom-0 w-full min-h-screen h-screen z-50 overflow-hidden bg-gray-700 opacity-75 flex flex-col items-center justify-center">
             <div>
                 <div style="border-top-color:transparent"
@@ -17,17 +17,26 @@
                     v-model="data.location"
                     @keypress="getWeatherData">
             </div>
-            <div class="location-box">
-                <div class="location font-mono">{{data.weather.name}}, {{data.weather.sys.country}}</div>
-                <p>{{calendar}}</p>
+
+            <div class="weather-app">
+                <div class="location-box">
+                    <div class="location font-mono">{{data.weather.name}}, {{data.weather.sys.country}}</div>
+                    <div class="calendar">{{calendar}}</div>
+                </div>
             </div>
+
+            <div class="weather-box">
+                <div class="temp">{{Math.round(data.weather.main.temp)}}º</div>
+                <div class="wheather">{{ data.weather.weather[0].description }}</div>
+            </div>
+            
             
         </div>
     </div>
 </template>
 
 <script lang='ts'>
-import { defineComponent, onMounted, reactive,computed, } from 'vue';
+import { defineComponent, onMounted, reactive } from 'vue';
 import weatherServices from '@/services/WeatherService';
 import WeatherDTO from '@/dtos/WeatherDTO';
 

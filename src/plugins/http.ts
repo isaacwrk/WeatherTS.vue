@@ -4,7 +4,8 @@ const http = axios.create({
     baseURL:'https://api.openweathermap.org/data/2.5',
     params:{
         'appid':process.env.VUE_APP_WEATHER_KEY,
-        'units':'metric'
+        'units':'metric',
+        'lang':'pt_br'
     }
 });
 
