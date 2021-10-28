@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-blue-300">
+    <div class="weather h-min-screen">
         <div v-if="!data.weather" wire:loading class="fixed top-0 left-0 right-0 bottom-0 w-full min-h-screen h-screen z-50 overflow-hidden bg-gray-700 opacity-75 flex flex-col items-center justify-center">
             <div>
                 <div style="border-top-color:transparent"
@@ -29,15 +29,16 @@
             <div class="flex">
                 <div class="weather-box flex-1">
                     <div class="temp">{{Math.round(data.weather.main.temp)}}º</div>
-                    <div class="wheather">{{ data.weather.weather[0].description }}</div>
+                    <div class="wheather mb-5">{{ data.weather.weather[0].description }}</div>
                 </div>
 
-                <div class="extra flex-1">
-                    <div class="info-box">
+                <div class="extra flex-1 mr-2">
+                    <div class="info-box max-w-xs mt-10">
                         <p>Minima: {{Math.round(data.weather.main.temp_min)}}º</p>
                         <p>Máxima: {{Math.round(data.weather.main.temp_max)}}º</p>
                         <p>Sensação Térmica: {{Math.round(data.weather.main.feels_like)}}º</p>
                         <p>Umidade: {{data.weather.main.humidity}}%</p>
+                        <p>Velocidade do vento: {{data.weather.wind.speed}}</p>
                     </div>
                 </div>
             </div>
@@ -90,7 +91,7 @@ export default weather;
 
 <style>
 
-#weather{
+.weather{
   background-image:url('../assets/cold-bg.jpg');
   background-size: cover;
   background-position: bottom;
@@ -166,7 +167,7 @@ main{
   text-shadow: 3px 6px rgba(0, 0, 0, 0.25);
 }
 .extra{
-  margin-top:10px;
+  margin-top:28px;
   padding: 10px;
   background-color: rgba(255, 255, 255, 0.35);
   border-radius: 4px;
