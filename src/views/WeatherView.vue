@@ -1,6 +1,6 @@
 <template>
     <div class="">
-        <div v-if="data.loading || !data.weather" wire:loading class="fixed top-0 left-0 right-0 bottom-0 w-full min-h-screen h-screen z-50 overflow-hidden bg-gray-700 opacity-75 flex flex-col items-center justify-center">
+        <div v-if="!data.weather" wire:loading class="fixed top-0 left-0 right-0 bottom-0 w-full min-h-screen h-screen z-50 overflow-hidden bg-gray-700 opacity-75 flex flex-col items-center justify-center">
             <div>
                 <div style="border-top-color:transparent"
                      class="w-16 h-16 border-4 border-blue-400 border-double rounded-full animate-spin"></div>
@@ -9,7 +9,18 @@
             <p class="w-1/3 text-center text-white">Quase lá, estamos nos últimos ajustes :)</p>
         </div>
         <div v-else class="min-h-screen min-w-min">
-            <pre>{{data.weather}}</pre>
+            <div class="search-box">
+                <input
+                    type="text"
+                    class="search-bar"
+                    placeholder="Pesquisar..."
+                    v-model="data.location"
+                    @keypress="getWeatherData">
+            </div>
+            <div class="location-box">
+                <div class="location">{{data.weather.name}}, {{data.weather.sys.country}}</div>
+            </div>
+            
         </div>
     </div>
 </template>
@@ -39,9 +50,6 @@ const weather = defineComponent({
             try{
                 const resp = await weatherServices.getWeather({ q:data.location });
                 data.weather = resp;
-                setTimeout(()=>{
-                    data.loading = false; 
-                },3000); 
             } catch(error){
                 console.log(error);
             }
