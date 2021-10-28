@@ -1,7 +1,6 @@
-import WeatherDTO from '@/dtos/WeatherDTO'
 
 interface WeatherQuery{
-    query:null | WeatherDTO
+    q:string
 }
 
-export default WeatherQuery
+export default WeatherQuery;

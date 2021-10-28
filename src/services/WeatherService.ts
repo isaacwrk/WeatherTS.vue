@@ -4,9 +4,9 @@ import WeatherQuery from '@/queryObject/WeatherQuery';
 
 const weatherService = {
     getWeather: async (query: WeatherQuery): Promise<WeatherDTO> =>{
-        const resp = await http.get<WeatherDTO>('/weather', {params: query})
-        return resp.data
+        const resp = await http.get<WeatherDTO>('/weather', { params: query });
+        return resp.data;
     }
-}
+};
 
-export default weatherService
+export default weatherService;

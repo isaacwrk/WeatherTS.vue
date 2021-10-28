@@ -1,29 +1,20 @@
 <template>
-  <Weather/>
+    <WeatherView/>
 </template>
 
-<script lang="ts">
-import { Options, Vue } from 'vue-class-component';
-import Weather from '@/components/Weather.vue'
+<script lang='ts'>
+import { defineComponent } from 'vue';
+import WeatherView  from '@/views/WeatherView.vue';
 
+const App = defineComponent({
+    components:{
+        WeatherView
+    }
+});
 
-@Options({
-  components: {
-    Weather
-  },
-})
-export default class App extends Vue {}
+export default App;
 </script>
 
 <style>
-
-*{
-    margin:0;
-    padding: 0;
-    box-sizing: border-box;
-}
-body{
-    font-family: 'montserrat', sans-serif;
-}
 
 </style>

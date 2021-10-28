@@ -1,52 +1,54 @@
 <template>
-<div>
-    <main>
-        <div>
-            <input 
-            v-model="weather"
-            type="text"
-            class="search-bar"
-            placeholder="Pesquisar.."
-            @keypress="fetchWeather"/>
+    <div>
+
+        <div v-if="data.loading || !data.weather">
+            <h2>loading</h2>
         </div>
-        
-        <div class="weather-app">
-            <div class="location-box">
-                <div class="location"></div>
-            </div>
+
+        <div v-else>
+            <pre>{{data.weather}}</pre>
         </div>
-    </main>
-</div>
+    </div>
 </template>
 
 <script lang='ts'>
 import { defineComponent, onMounted, reactive } from 'vue';
-import weatherServices from '@/services/WeatherService'
-import WeatherDTO from '@/dtos/WeatherDTO'
+import weatherServices from '@/services/WeatherService';
+import WeatherDTO from '@/dtos/WeatherDTO';
 
 interface NewWeatherState{
-  weather:WeatherDTO | null
+    weather:WeatherDTO | null
+    loading : boolean
+    location:string
 }
 
 const weather = defineComponent({
 
-setup(){
-    const data = reactive<NewWeatherState>({
-      weather:null, 
-    })
-    const getWeatherData = async() =>{
-      try{
-          const weatherRequest = await weatherServices.getWeather({query:data.weather});
-          const result =  weatherRequest;
-      } catch(error){
-        console.log(error)
-      }
+    setup(){
+        const data = reactive<NewWeatherState>({
+            weather:null, 
+            loading: true,
+            location: 'Patos'
+        });
+
+        const getWeatherData = async() =>{
+            data.loading = true; 
+            try{
+                const resp = await weatherServices.getWeather({ q:data.location });
+                data.weather = resp;
+                setTimeout(()=>{
+                    data.loading = false; 
+                },3000); 
+            } catch(error){
+                console.log(error);
+            }
+        };
+
+
+        onMounted(() => getWeatherData());
+
+        return { getWeatherData, data };
     }
-
-    onMounted(() => getWeatherData())
-
-    return { }
-}
 
 
 });
