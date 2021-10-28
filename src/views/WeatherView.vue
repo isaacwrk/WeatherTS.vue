@@ -19,7 +19,7 @@
             </div>
             <div class="location-box">
                 <div class="location font-mono">{{data.weather.name}}, {{data.weather.sys.country}}</div>
-                <p>{{today}}</p>
+                <p>{{calendar}}</p>
             </div>
             
         </div>
@@ -45,7 +45,7 @@ const weather = defineComponent({
             location: 'Patos'
         });
 
-        const today = new Date().toISOString().substr(0, 10).split('-').reverse().join('/');
+        const calendar = new Date().toISOString().substr(0, 10).split('-').reverse().join('/');
         
         
         const getWeatherData = async() =>{
@@ -60,7 +60,7 @@ const weather = defineComponent({
         
         onMounted(() => getWeatherData());
 
-        return { getWeatherData, data, today };
+        return { getWeatherData, data, calendar };
     }
 
 
