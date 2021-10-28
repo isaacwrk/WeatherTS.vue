@@ -1,11 +1,14 @@
 <template>
-    <div>
-
-        <div v-if="data.loading || !data.weather">
-            <h2>loading</h2>
+    <div class="">
+        <div v-if="data.loading || !data.weather" wire:loading class="fixed top-0 left-0 right-0 bottom-0 w-full min-h-screen h-screen z-50 overflow-hidden bg-gray-700 opacity-75 flex flex-col items-center justify-center">
+            <div>
+                <div style="border-top-color:transparent"
+                     class="w-16 h-16 border-4 border-blue-400 border-double rounded-full animate-spin"></div>
+            </div>
+            <h2 class="text-center text-white text-xl font-semibold">Carregando...</h2>
+            <p class="w-1/3 text-center text-white">Quase lá, estamos nos últimos ajustes :)</p>
         </div>
-
-        <div v-else>
+        <div v-else class="min-h-screen min-w-min">
             <pre>{{data.weather}}</pre>
         </div>
     </div>
@@ -52,11 +55,11 @@ const weather = defineComponent({
 
 
 });
-
 export default weather;
 </script>
 
 <style>
+
 #weather{
   background-image:url('../assets/cold-bg.jpg');
   background-size: cover;
