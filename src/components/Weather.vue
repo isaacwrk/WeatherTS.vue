@@ -3,6 +3,7 @@
     <main>
         <div>
             <input 
+            v-model="weather"
             type="text"
             class="search-bar"
             placeholder="Pesquisar.."
