@@ -18,19 +18,30 @@
                     @keypress="getWeatherData">
             </div>
 
+           
             <div class="weather-app">
                 <div class="location-box">
-                    <div class="location font-mono">{{data.weather.name}}, {{data.weather.sys.country}}</div>
-                    <div class="calendar">{{calendar}}</div>
+                    <div class="location font-mono">{{data.weather.name}}-{{data.weather.sys.country}}</div>
+                    <div class="calendar font-light">{{calendar}}</div>
                 </div>
             </div>
 
-            <div class="weather-box">
-                <div class="temp">{{Math.round(data.weather.main.temp)}}º</div>
-                <div class="wheather">{{ data.weather.weather[0].description }}</div>
+            <div class="flex">
+                <div class="weather-box flex-1">
+                    <div class="temp">{{Math.round(data.weather.main.temp)}}º</div>
+                    <div class="wheather">{{ data.weather.weather[0].description }}</div>
+                </div>
+
+                <div class="extra flex-1">
+                    <div class="info-box">
+                        <p>Minima: {{Math.round(data.weather.main.temp_min)}}º</p>
+                        <p>Máxima: {{Math.round(data.weather.main.temp_max)}}º</p>
+                        <p>Sensação Térmica: {{Math.round(data.weather.main.feels_like)}}º</p>
+                        <p>Umidade: {{data.weather.main.humidity}}%</p>
+                    </div>
+                </div>
             </div>
-            
-            
+
         </div>
     </div>
 </template>
@@ -155,7 +166,6 @@ main{
   text-shadow: 3px 6px rgba(0, 0, 0, 0.25);
 }
 .extra{
-  text-align: center;
   margin-top:10px;
   padding: 10px;
   background-color: rgba(255, 255, 255, 0.35);
