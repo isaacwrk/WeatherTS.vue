@@ -18,7 +18,8 @@
                     @keypress="getWeatherData">
             </div>
             <div class="location-box">
-                <div class="location">{{data.weather.name}}, {{data.weather.sys.country}}</div>
+                <div class="location font-mono">{{data.weather.name}}, {{data.weather.sys.country}}</div>
+                <p>{{today}}</p>
             </div>
             
         </div>
@@ -26,7 +27,7 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, onMounted, reactive } from 'vue';
+import { defineComponent, onMounted, reactive,computed, } from 'vue';
 import weatherServices from '@/services/WeatherService';
 import WeatherDTO from '@/dtos/WeatherDTO';
 
@@ -37,7 +38,6 @@ interface NewWeatherState{
 }
 
 const weather = defineComponent({
-
     setup(){
         const data = reactive<NewWeatherState>({
             weather:null, 
@@ -45,6 +45,9 @@ const weather = defineComponent({
             location: 'Patos'
         });
 
+        const today = new Date().toISOString().substr(0, 10).split('-').reverse().join('/');
+        
+        
         const getWeatherData = async() =>{
             data.loading = true; 
             try{
@@ -54,11 +57,10 @@ const weather = defineComponent({
                 console.log(error);
             }
         };
-
-
+        
         onMounted(() => getWeatherData());
 
-        return { getWeatherData, data };
+        return { getWeatherData, data, today };
     }
 
 
