@@ -55,6 +55,7 @@ import { defineComponent, onMounted, reactive } from 'vue';
 import weatherServices from '@/services/WeatherService';
 import WeatherDTO from '@/dtos/WeatherDTO';
 
+
 interface NewWeatherState{
     weather:WeatherDTO | null
     loading : boolean
