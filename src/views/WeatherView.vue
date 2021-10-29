@@ -9,7 +9,7 @@
             <p class="w-1/3 text-center text-white">Quase lá, estamos nos últimos ajustes :)</p>
         </div>
         <div v-else class="min-h-screen min-w-min" :class="data.weather.main.temp > 23 ? 'warm' : 'weather' ">
-            <div class="text-right mr-3 pt-1 text-white font-normal font-sans">
+            <div class="text-right mr-3 pt-1 text-white font-normal font-sans cursor-default">
                 {{calendar}}
             </div>
             <div class="search-box">
@@ -23,7 +23,7 @@
 
            
             <div class="weather-app">
-                <div class="location-box bg-gray-50 bg-opacity-25 rounded mr-2 ml-2">
+                <div class="location-box bg-gray-50 bg-opacity-25 rounded mr-2 ml-2 cursor-pointer">
                     <div class="location font-mono font-normal text-white tracking-tighter">{{data.weather.name}}-{{data.weather.sys.country}}</div>
                     <div v-if="data.weather.main.temp > 23" class="text-white">Hoje vai ser quente! sensação térmica chegando a {{Math.round(data.weather.main.feels_like)}}ºc</div>
                     <div v-else class="text-white">Leve o agasalho! Sensação térmica chegando a {{Math.round(data.weather.main.feels_like)}}ºc</div>
@@ -31,7 +31,7 @@
             </div>
 
             
-            <div class="weather-box">
+            <div class="weather-box cursor-pointer">
                 <div class="temp">{{Math.round(data.weather.main.temp)}}ºc</div>
                 <div class="wheather mb-5">{{ data.weather.weather[0].description }}</div>
             </div>
