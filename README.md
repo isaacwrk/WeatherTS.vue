@@ -8,6 +8,7 @@
 > 
 > 
 > My special thanks to [Igor Dantas](https://github.com/igorcd) which helped me a lot in the refactoring this project
+> you can acess and test [here](https://weathertypescript.web.app/)
 
 
 ![](https://github.com/isaacwrk/js-exercises/blob/master/ex/example.png)
