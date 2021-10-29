@@ -9,6 +9,9 @@
             <p class="w-1/3 text-center text-white">Quase lá, estamos nos últimos ajustes :)</p>
         </div>
         <div v-else class="min-h-screen min-w-min" :class="data.weather.main.temp > 23 ? 'warm' : 'weather' ">
+            <div class="text-right mr-3 pt-1 text-white font-normal font-sans">
+                {{calendar}}
+            </div>
             <div class="search-box">
                 <input
                     type="text"
@@ -21,27 +24,27 @@
            
             <div class="weather-app">
                 <div class="location-box bg-gray-50 bg-opacity-25 rounded mr-2 ml-2">
-                    <div class="location font-mono font-normal">{{data.weather.name}}-{{data.weather.sys.country}}</div>
-                    <div class="calendar font-normal text-gray-700">{{calendar}}</div>
+                    <div class="location font-mono font-normal text-white">{{data.weather.name}}-{{data.weather.sys.country}}</div>
+                    <div v-if="data.weather.main.temp > 23" class="text-white">Hoje vai ser quente! sensação térmica chegando a {{Math.round(data.weather.main.feels_like)}}ºc</div>
+                    <div v-else class="text-white">Leve o agasalho! Sensação térmica chegando a {{Math.round(data.weather.main.feels_like)}}ºc</div>
                 </div>
             </div>
 
-            <div class="flex">
-                <div class="weather-box flex-1">
-                    <div class="temp">{{Math.round(data.weather.main.temp)}}º</div>
-                    <div class="wheather mb-5">{{ data.weather.weather[0].description }}</div>
-                </div>
+            
+            <div class="weather-box">
+                <div class="temp">{{Math.round(data.weather.main.temp)}}ºc</div>
+                <div class="wheather mb-5">{{ data.weather.weather[0].description }}</div>
+            </div>
 
-                <div class="extra flex-1 mr-2">
-                    <div class="info-box max-w-xs mt-10">
-                        <p>Minima: {{Math.round(data.weather.main.temp_min)}}º</p>
-                        <p>Máxima: {{Math.round(data.weather.main.temp_max)}}º</p>
-                        <p>Sensação Térmica: {{Math.round(data.weather.main.feels_like)}}º</p>
-                        <p>Umidade: {{data.weather.main.humidity}}%</p>
-                        <p>Velocidade do vento: {{data.weather.wind.speed}}</p>
-                    </div>
+            <div class="extra mr-2 ml-2">
+                <div class="info-box  text-center">
+                    <p>Minima: {{Math.round(data.weather.main.temp_min)}}ºc</p>
+                    <p>Máxima: {{Math.round(data.weather.main.temp_max)}}ºc</p>
+                    <p>Umidade: {{data.weather.main.humidity}}%</p>
+                    <p>Velocidade do vento: {{data.weather.wind.speed}} km/h</p>
                 </div>
             </div>
+            
 
         </div>
     </div>
@@ -63,7 +66,7 @@ const weather = defineComponent({
         const data = reactive<NewWeatherState>({
             weather:null, 
             loading: true,
-            location: 'Patos'
+            location: 'João Pessoa'
         });
 
         const calendar = new Date().toISOString().substr(0, 10).split('-').reverse().join('/');
@@ -91,13 +94,13 @@ export default weather;
 <style>
 
 .weather{
-  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)),url('../assets/sky-bg.jpg');
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.20), rgba(0, 0, 0, 0.55)),url('../assets/sky-bg.jpg');
   background-size: cover;
   background-position: bottom;
   transition: 0.4s;
 }
 .warm{
-  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)),url('../assets/sky-bg-heat.jpg');
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.20), rgba(0, 0, 0, 0.55)),url('../assets/sky-bg-heat.jpg');
   background-size: cover;
   transition: 0.4s;
 }
@@ -170,7 +173,7 @@ export default weather;
 .extra{
   margin-top:28px;
   padding: 10px;
-  background-color: rgba(255, 255, 255, 0.35);
+  background-color: rgba(255, 255, 255, 0.349);
   border-radius: 4px;
   color: #FFF;
 }
