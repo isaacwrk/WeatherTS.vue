@@ -1,5 +1,5 @@
 <template>
-    <div class="weather h-min-screen">
+    <div class="h-min-screen">
         <div v-if="!data.weather" wire:loading class="fixed top-0 left-0 right-0 bottom-0 w-full min-h-screen h-screen z-50 overflow-hidden bg-gray-700 opacity-75 flex flex-col items-center justify-center">
             <div>
                 <div style="border-top-color:transparent"
@@ -8,11 +8,11 @@
             <h2 class="text-center text-white text-xl font-semibold">Carregando...</h2>
             <p class="w-1/3 text-center text-white">Quase lá, estamos nos últimos ajustes :)</p>
         </div>
-        <div v-else class="min-h-screen min-w-min">
+        <div v-else class="min-h-screen min-w-min" :class="data.weather.main.temp > 23 ? 'warm' : 'weather' ">
             <div class="search-box">
                 <input
                     type="text"
-                    class="search-bar"
+                    class="search-bar hover:bg-gray-200 font-mono tracking-tighter"
                     placeholder="Pesquisar..."
                     v-model="data.location"
                     @keypress="getWeatherData">
@@ -20,9 +20,9 @@
 
            
             <div class="weather-app">
-                <div class="location-box">
-                    <div class="location font-mono">{{data.weather.name}}-{{data.weather.sys.country}}</div>
-                    <div class="calendar font-light">{{calendar}}</div>
+                <div class="location-box bg-gray-50 bg-opacity-25 rounded mr-2 ml-2">
+                    <div class="location font-mono font-normal">{{data.weather.name}}-{{data.weather.sys.country}}</div>
+                    <div class="calendar font-normal text-gray-700">{{calendar}}</div>
                 </div>
             </div>
 
@@ -68,7 +68,6 @@ const weather = defineComponent({
 
         const calendar = new Date().toISOString().substr(0, 10).split('-').reverse().join('/');
         
-        
         const getWeatherData = async() =>{
             data.loading = true; 
             try{
@@ -78,7 +77,7 @@ const weather = defineComponent({
                 console.log(error);
             }
         };
-        
+
         onMounted(() => getWeatherData());
 
         return { getWeatherData, data, calendar };
@@ -92,15 +91,17 @@ export default weather;
 <style>
 
 .weather{
-  background-image:url('../assets/cold-bg.jpg');
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)),url('../assets/sky-bg.jpg');
   background-size: cover;
   background-position: bottom;
   transition: 0.4s;
 }
-#weather.warm{
-  background-image: url('../assets/warm-bg.jpg');
+.warm{
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)),url('../assets/sky-bg-heat.jpg');
+  background-size: cover;
+  transition: 0.4s;
 }
-main{
+.main{
   height: 100vh;
   padding: 25px;
   background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.75));
